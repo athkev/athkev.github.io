@@ -1,84 +1,584 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <!-- Metadata -->
-        <meta charset="utf-8">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kevin Ahn</title>
+    <style>
+        /* --- CSS STYLES --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #111;
+            color: #fff;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* --- ANIMATIONS --- */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+
+        /* HEADER & VIDEO */
+        header {
+            text-align: center;
+            padding: 4rem 0 2rem;
+            min-height: 90vh; 
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 1.5s ease-out;
+        }
+
+        h1 { font-size: 3.5rem; font-weight: 700; margin-bottom: 0.5rem; }
+        h2 { font-size: 1.2rem; font-weight: 300; color: #aaa; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 3rem; }
+
+        .video-wrapper {
+            width: 100%;
+            max-width: 900px;
+            aspect-ratio: 16 / 9;
+            background: #000;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            animation: slideUp 1s ease-out;
+            margin-bottom: 0;
+        }
         
-        <!-- Mobile Specific Metas -->
-        <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
-        <meta name="keywords" content="programmer, coding, console, cv, java, haskell, OpenGL, c, c++, games developer, software developer, english, israeli, hebrew" />
-        <meta name="description" content="Games and software developer interested in c++ engine development." />
+        iframe { width: 100%; height: 100%; border: none; }
 
-        <title>Kevin Ahn</title>
+        /* --- SCROLL INDICATOR --- */
+        .scroll-container {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            margin-top: 3rem; /* Space between video and arrow */
+            padding-bottom: 2rem;
+        }
 
-
-        <!-- External file links for this html page  -->
+        .scroll-indicator {
+            cursor: pointer;
+            opacity: 0.7;
+            animation: bounce 2s infinite;
+            padding: 10px;
+            transition: opacity 0.3s;
+            background: none;
+            border: none;
+        }
         
-        <!-- CSS -->
-        <link rel="stylesheet" type="text/css" href="styles/skeleton.css">
-        <link rel="stylesheet" type="text/css" href="styles/landing.css">
-        <link rel="stylesheet" type="text/css" href="styles/career.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        .scroll-indicator:hover { opacity: 1; }
 
-        <!-- Project related css files --> 
-        <link rel="stylesheet" type="text/css" href="./styles/project_styles/mirage.css"/>
-        <link rel="stylesheet" type="text/css" href="./styles/project_styles/exalted.css"/>
-        <link rel="stylesheet" type="text/css" href="./styles/project_styles/15_puzzle.css"/>
-        <link rel="stylesheet" type="text/css" href="./styles/project_styles/game_tech.css"/>
-        <link rel="stylesheet" type="text/css" href="./styles/project_styles/vpa.css"/>
+        .scroll-indicator span {
+            display: block;
+            width: 20px;
+            height: 20px;
+            border-bottom: 2px solid #fff;
+            border-right: 2px solid #fff;
+            transform: rotate(45deg);
+        }
 
-        <!-- Icon -->
-        <link rel="icon" type="image/png" href="./data/images/icon_white.png">
+        /* GALLERY SECTION */
+        .gallery-section {
+            padding: 4rem 0 2rem;
+            background: #000;
+            border-top: 1px solid #222;
+        }
 
-        <!-- Scripts -->
-        <script src="scripts/quick_links.js"></script>
+        .gallery-title {
+            text-align: center;
+            margin-bottom: 2rem;
+            font-weight: 300;
+            letter-spacing: 2px;
+            font-size: 0.9rem;
+            color: #888;
+        }
 
-        <!-- Add google analytics data -->
+        /* GRID SYSTEM */
+        .gallery-grid {
+            display: grid;
+            gap: 15px; 
+            grid-template-columns: repeat(4, 1fr);
+        }
 
-    </head>
+        @media (max-width: 1024px) {
+            .gallery-grid { grid-template-columns: repeat(3, 1fr); }
+        }
 
-    <!-- Add a custom container class implementation here.... -->
-    <body id="top">
-        <div class="container" style="margin-top: 1%" align="center">
-            <div id="title">Kevin Ahn</div>
-            <img class="landing_logo" src="./data/images/portrait.png" alt="Portrait">
-            <div id="quick_links">
-                <a href="./Data/resume.pdf" target="_blank"><i class="fa fa-envelope"></i></a>
-                <a href="https://github.com/athkev" target="_blank"><i class="fa fa-github"></i></a>
-                <a href="https://www.linkedin.com/in/athkev/" target="_blank"><i class="fa fa-linkedin"></i></a>
-                <a href="https://www.youtube.com/channel/UCz-SCG_0DF5J1-fKzMRfMoQ" target="_blank"><i class="fa fa-youtube"></i></a>
+        @media (max-width: 600px) {
+            .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+            h1 { font-size: 2.5rem; }
+        }
+
+        .gallery-item {
+            position: relative;
+            cursor: pointer;
+            overflow: hidden;
+            width: 100%;
+            border-radius: 8px;
+            aspect-ratio: 4 / 3;
+            perspective: 1000px;
+            transform-style: preserve-3d;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .gallery-item:hover {
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.1s ease-out, filter 0.3s ease;
+            filter: grayscale(20%) brightness(0.7) contrast(1.05);
+            transform-style: preserve-3d;
+            position: relative;
+            z-index: 1;
+        }
+
+        .gallery-item:hover img {
+            filter: grayscale(0%) brightness(1.05) contrast(1.1);
+        }
+
+        /* Glossy overlay on the image */
+        .glossy-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(
+                135deg,
+                rgba(255, 255, 255, 0.2) 0%,
+                rgba(255, 255, 255, 0) 50%,
+                rgba(0, 0, 0, 0.1) 100%
+            );
+            pointer-events: none;
+            z-index: 2;
+            border-radius: 8px;
+            opacity: 0.6;
+            transition: opacity 0.3s ease;
+            transform-style: preserve-3d;
+        }
+
+        .gallery-item:hover .glossy-overlay {
+            opacity: 1;
+            background: linear-gradient(
+                135deg,
+                rgba(255, 255, 255, 0.35) 0%,
+                rgba(255, 255, 255, 0) 50%,
+                rgba(0, 0, 0, 0.15) 100%
+            );
+        }
+
+        /* LIGHTBOX */
+        .lightbox {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            padding-top: 50px;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(5px);
+        }
+
+        .lightbox-content {
+            margin: auto;
+            display: block;
+            max-width: 90%;
+            max-height: 80vh;
+            border-radius: 4px;
+            box-shadow: 0 0 30px rgba(0,0,0,0.8);
+            animation: slideUp 0.4s ease-out;
+        }
+
+        .caption {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 700px;
+            text-align: center;
+            color: #fff;
+            padding: 15px 0;
+            font-size: 1.1rem;
+            font-weight: 300;
+        }
+
+        .close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: #fff;
+            font-size: 50px;
+            font-weight: 100;
+            transition: 0.3s;
+            cursor: pointer;
+            z-index: 2001;
+            line-height: 0.7;
+        }
+        .close:hover { color: #f00; }
+
+        /* PDF VIEWER */
+        .pdf-lightbox {
+            padding-top: 0;
+        }
+
+        .pdf-viewer {
+            width: 90%;
+            height: 90vh;
+            max-width: 1200px;
+            border: none;
+            border-radius: 4px;
+            margin: auto;
+            display: block;
+            margin-top: 5vh;
+            box-shadow: 0 0 30px rgba(0,0,0,0.8);
+            animation: slideUp 0.4s ease-out;
+        }
+
+        /* BOTTOM SECTION */
+        .bottom-section {
+            padding: 6rem 0;
+            text-align: center;
+            background: #111;
+            border-top: 1px solid #222;
+        }
+        
+        .bottom-content { max-width: 600px; margin: 0 auto; }
+        .bottom-content h3 { margin-bottom: 1rem; }
+        .bottom-content p { line-height: 1.6; color: #888; margin-bottom: 2rem; }
+
+        .button-group {
+            display: flex;
+            justify-content: center;
+            gap: 15px; 
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: #fff;
+            color: #000;
+            border: 2px solid #fff;
+            border-radius: 30px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: 0.3s;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: inherit;
+        }
+        .btn:hover { background: #ccc; border-color: #ccc; }
+
+        .btn-outline {
+            display: inline-block;
+            padding: 12px 30px;
+            /* FIXED: Changed from 'transparent' to 'rgba(255,255,255,0)' to prevent grey flash */
+            background: rgba(255, 255, 255, 0); 
+            color: #fff;
+            border: 2px solid #fff;
+            border-radius: 30px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: 0.3s;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: inherit;
+        }
+        .btn-outline:hover { background: #fff; color: #000; }
+        
+        /* EMAIL NOTIFICATION */
+        .email-notification {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: #fff;
+            color: #000;
+            padding: 15px 30px;
+            border-radius: 30px;
+            font-weight: 600;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 3000;
+            pointer-events: none;
+        }
+        
+        .email-notification.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+        
+    </style>
+    <script src="https://www.youtube.com/iframe_api"></script>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>Kevin Ahn</h1>
+            <h2>Gameplay & Engine Programmer</h2>
+            <div class="video-wrapper">
+                <iframe id="youtube-player" width="560" height="315" 
+                src="https://www.youtube.com/embed/1Z2YPyjT6sQ?autoplay=1&enablejsapi=1" 
+                title="YouTube video player" 
+                referrerpolicy="strict-origin-when-cross-origin" 
+                allowfullscreen>
+                </iframe>
             </div>
-            <hr>
-            <div id="about_me">Hi there and thanks for stopping by! My name is Kevin, I'm a passionate programmer who feels enjoyment and fulfillment from the journey of creating experiences.</div>
-            <hr>
 
-            <section class="buttons">
-                <div class="button_container">
-                    <div id="projects-Button" class="btn btn-5 kd-button" onClick="document.getElementById('project_data_area').style.opacity = 0;">Projects</div>
-                    <div id="career-Button" class="btn btn-5 kd-button" onClick="document.getElementById('project_data_area').style.opacity = 0;">Career</div>
-                    <div id="skills-Button" class="btn btn-5 kd-button" onClick="document.getElementById('project_data_area').style.opacity = 0;">Skills</div>
-                    <div id="research-Button" class="btn btn-5 kd-button" onClick="document.getElementById('project_data_area').style.opacity = 0;">Research</div>
-                </div>
-            </section>
-        </div>
-
-        <!-- Scripts used in top body -->
-        <script src="scripts/text_animation.js"></script>
-        <script>
-            // Simulate a click on the "projects-Button" when the page loads
-            window.onload = function () {
-                document.getElementById('projects-Button').click();
-            };
-        </script>
-    </body>
-
-    <div id="bottom">
-        <!-- Data_Labels -->
-        <div id="data_selection_area" class="container kd-selection-content" style="opacity: 0;"></div>
-        <div id="project_data_area" class="container kd-selection-content" style="opacity: 0;"></div>
-        <script src="scripts/button_nav_selection.js"></script>
-        <script src="scripts/button_nav_proj.js"></script>
-        <script src="scripts/button_nav_career.js"></script>
-
+            <div class="scroll-container">
+                <button onclick="scrollToGallery()" class="scroll-indicator">
+                    <span></span>
+                </button>
+            </div>
+        </header>
     </div>
+
+    <section class="gallery-section" id="gallery-start">
+        <div class="container">
+            <div class="gallery-grid" id="galleryGrid">
+                </div>
+        </div>
+    </section>
+
+    <section class="bottom-section">
+        <div class="container bottom-content">
+            <h3>About Me</h3>
+            <p>I engineer robust game systems using the Data-Oriented Technology Stack (DOTS) and server-authoritative networking. From low-level memory management to complex IK animation pipelines, I build the infrastructure that powers high-fidelity interactive applications.</p>
+            <div class="button-group">
+                <button onclick="copyEmail()" class="btn">Get in Touch</button>
+                <button onclick="openResume()" class="btn-outline">View Resume</button>
+            </div>
+            <div id="emailNotification" class="email-notification">Email copied to clipboard!</div>
+        </div>
+    </section>
+
+    <div id="myLightbox" class="lightbox">
+        <span class="close">&times;</span>
+        <img class="lightbox-content" id="img01">
+        <div id="caption" class="caption"></div>
+    </div>
+
+    <div id="pdfLightbox" class="lightbox pdf-lightbox">
+        <span class="close" onclick="closePdfViewer()">&times;</span>
+        <embed id="pdfViewer" class="pdf-viewer" src="" type="application/pdf">
+    </div>
+
+    <script>
+        
+        // YOUTUBE PLAYER SETUP
+        let youtubePlayer;
+        function onYouTubeIframeAPIReady() {
+            youtubePlayer = new YT.Player('youtube-player', {
+                events: {
+                    'onReady': onPlayerReady
+                }
+            });
+        }
+        
+        function onPlayerReady(event) {
+            // Set volume to 25% (volume range is 0-100)
+            event.target.setVolume(25);
+        }
+        
+        // 1. DATA LIST
+        const myImages = [
+            { file: "1.png", desc: " " },
+            { file: "2.png", desc: " " },
+            { file: "3.png", desc: " " },
+            { file: "4.png", desc: " " },
+            { file: "5.png", desc: " " },
+            { file: "6.png", desc: " " },
+            { file: "7.png", desc: " " },
+            { file: "8.png", desc: " " },
+            { file: "9.png", desc: " " },
+            { file: "10.png", desc: " " },
+            { file: "11.png", desc: " " },
+            { file: "12.png", desc: " " }
+        ];
+
+        // 2. GENERATE GRID (WITH FAIL-SAFE)
+        const galleryGrid = document.getElementById('galleryGrid');
+        
+        myImages.forEach((image, index) => {
+            const div = document.createElement('div');
+            div.className = 'gallery-item';
+            
+            // Create the image element safely
+            const img = document.createElement('img');
+            
+            // Try to load the local file
+            img.src = `Images/${image.file}`;
+            //img.alt = image.desc;
+            
+            // FAIL-SAFE: If local image fails, load a placeholder
+            img.onerror = function() {
+                this.onerror = null; // Prevent infinite loop
+                this.src = `https://picsum.photos/800/450?random=${index}`;
+            };
+            
+            // Add click event for lightbox
+            img.onclick = function() {
+                openLightbox(this);
+            };
+
+            // Create glossy overlay element
+            const glossyOverlay = document.createElement('div');
+            glossyOverlay.className = 'glossy-overlay';
+            div.appendChild(glossyOverlay);
+            
+            // Add tilt effect on mouse move
+            div.addEventListener('mousemove', function(e) {
+                const rect = div.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                // Increased tilt amount (changed from /10 to /5)
+                const rotateX = (y - centerY) / 5;
+                const rotateY = (centerX - x) / 5;
+                
+                const transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
+                img.style.transform = transform;
+                // Apply same transform to glossy overlay
+                glossyOverlay.style.transform = transform;
+            });
+            
+            div.addEventListener('mouseleave', function() {
+                const resetTransform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
+                img.style.transform = resetTransform;
+                glossyOverlay.style.transform = resetTransform;
+            });
+
+            div.appendChild(img);
+            galleryGrid.appendChild(div);
+        });
+
+        // 3. SMOOTH SCROLL FUNCTION
+        function scrollToGallery() {
+            const element = document.getElementById("gallery-start");
+            // 50px offset so title isn't cut off
+            const offset = 50; 
+            const bodyRect = document.body.getBoundingClientRect().top;
+            const elementRect = element.getBoundingClientRect().top;
+            const elementPosition = elementRect - bodyRect;
+            const offsetPosition = elementPosition - offset;
+
+            window.scrollTo({
+                top: offsetPosition,
+                behavior: "smooth"
+            });
+        }
+
+        // 4. LIGHTBOX
+        const modal = document.getElementById("myLightbox");
+        const modalImg = document.getElementById("img01");
+        const captionText = document.getElementById("caption");
+        const closeBtn = document.getElementsByClassName("close")[0];
+
+        function openLightbox(element) {
+            modal.style.display = "block";
+            modalImg.src = element.src;
+            captionText.innerHTML = element.alt;
+            document.body.style.overflow = "hidden";
+        }
+
+        closeBtn.onclick = function() {
+            modal.style.display = "none";
+            document.body.style.overflow = "auto";
+        }
+
+        modal.onclick = function(event) {
+            if (event.target === modal) {
+                modal.style.display = "none";
+                document.body.style.overflow = "auto";
+            }
+        }
+
+        // 5. COPY EMAIL FUNCTION
+        function copyEmail() {
+            const email = "athkev@gmail.com";
+            const notification = document.getElementById("emailNotification");
+            
+            // Copy to clipboard
+            navigator.clipboard.writeText(email).then(function() {
+                // Show notification
+                notification.classList.add("show");
+                
+                // Hide notification after 2 seconds
+                setTimeout(function() {
+                    notification.classList.remove("show");
+                }, 2000);
+            }).catch(function(err) {
+                // Fallback for older browsers
+                const textArea = document.createElement("textarea");
+                textArea.value = email;
+                textArea.style.position = "fixed";
+                textArea.style.opacity = "0";
+                document.body.appendChild(textArea);
+                textArea.select();
+                try {
+                    document.execCommand('copy');
+                    notification.classList.add("show");
+                    setTimeout(function() {
+                        notification.classList.remove("show");
+                    }, 2000);
+                } catch (err) {
+                    alert("Email: " + email);
+                }
+                document.body.removeChild(textArea);
+            });
+        }
+
+        // 6. PDF VIEWER
+        const pdfModal = document.getElementById("pdfLightbox");
+        const pdfViewer = document.getElementById("pdfViewer");
+
+        function openResume() {
+            pdfViewer.src = 'Data/KevinAhn_Resume.pdf';
+            pdfModal.style.display = "block";
+            document.body.style.overflow = "hidden";
+        }
+
+        function closePdfViewer() {
+            pdfModal.style.display = "none";
+            pdfViewer.src = "";
+            document.body.style.overflow = "auto";
+        }
+
+        pdfModal.onclick = function(event) {
+            if (event.target === pdfModal) {
+                closePdfViewer();
+            }
+        }
+    </script>
+
+</body>
 </html>
